@@ -32,16 +32,7 @@ pipeline {
 
     stages {
 
-        /*------------------------------------------
-          CHECKOUT
-        ------------------------------------------*/
-        stage('Checkout') {
-            steps {
-                echo '=== Checking out source code ==='
-                checkout scm
-            }
-        }
-
+       
         /*------------------------------------------
           BUILD SERVICES (SEQUENTIAL = STABLE)
         ------------------------------------------*/
