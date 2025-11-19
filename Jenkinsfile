@@ -90,7 +90,7 @@ pipeline {
                                 sh 'mvn test'
                             }
                         }
-                        junit "**/${svc}/target/surefire-reports/*.xml"
+                        junit allowEmptyResults: true, testResults: '**/${svc}/target/surefire-reports/*.xml'
                     }
                 }
             }
@@ -207,20 +207,43 @@ pipeline {
       POST STEPS
     ------------------------------------------*/
     post {
-        success {
-            echo "=== Deployment SUCCESS ==="
+            success {
+                echo '=== Pipeline completed successfully! ==='
+                // Add notification integration here
+                // emailext subject: "SUCCESS: ${currentBuild.fullDisplayName}",
+                //          body: "Build ${BUILD_NUMBER} completed successfully",
+                //          to: 'team@example.com'
+
+                // slackSend channel: '#deployments',
+                //           color: 'good',
+                //           message: "SUCCESS: ${env.JOB_NAME} - ${env.BUILD_NUMBER}"
+            }
+            failure {
+                echo '=== Pipeline failed! ==='
+                // Add failure notification here
+                // emailext subject: "FAILED: ${currentBuild.fullDisplayName}",
+                //          body: "Build ${BUILD_NUMBER} failed",
+                //          to: 'team@example.com'
+
+                // slackSend channel: '#deployments',
+                //           color: 'danger',
+                //           message: "FAILED: ${env.JOB_NAME} - ${env.BUILD_NUMBER}"
+            }
+            always {
+                echo '=== Cleaning up Docker images ==='
+                sh '''
+                    docker rmi ${USER_API_IMAGE}:${BUILD_NUMBER} || true
+                    docker rmi ${USER_API_IMAGE}:latest || true
+                    docker rmi ${PROFILE_API_IMAGE}:${BUILD_NUMBER} || true
+                    docker rmi ${PROFILE_API_IMAGE}:latest || true
+                    docker rmi ${NOTIFICATION_IMAGE}:${BUILD_NUMBER} || true
+                    docker rmi ${NOTIFICATION_IMAGE}:latest || true
+                '''
+
+                // Clean workspace
+                cleanWs()
+            }
         }
-        failure {
-            echo "=== DEPLOYMENT FAILED ==="
-        }
-        always {
-            echo "=== Cleaning Workspace & Docker images ==="
-            sh """
-                docker image prune -f
-            """
-            cleanWs()
-        }
-    }
 }
 
 /*------------------------------------------
