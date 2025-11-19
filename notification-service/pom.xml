@@ -44,14 +44,6 @@
             <version>3.11.2</version>
         </dependency>
 
-
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-lambda-java-core</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-
-
         <!-- Optional: if you ever expose HTTP endpoints from this module -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
