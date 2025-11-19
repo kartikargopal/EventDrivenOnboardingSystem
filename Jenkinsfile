@@ -19,7 +19,7 @@ pipeline {
         USER_API_SERVICE      = 'profile-api-service'
         PROFILE_API_SERVICE   = 'profile-api-service'
 
-        LAMBDA_FUNCTION       = 'notification-service'
+        LAMBDA_FUNCTION       = 'profile-api'
 
         BUILD_TAG             = "${env.BUILD_NUMBER}"
     }
