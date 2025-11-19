@@ -244,10 +244,11 @@ pipeline {
 def buildDocker(service, imageName) {
     dir(service) {
         sh """
-            docker build -t ${imageName}:${BUILD_NUMBER} .
+            docker build --provenance=false --platform linux/amd64 -t ${imageName}:${BUILD_NUMBER} .
             docker tag ${imageName}:${BUILD_NUMBER} ${imageName}:latest
         """
     }
+	
 }
 
 def pushDocker(imageName) {
