@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: profile-api-service
+
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+
+##aws:
+  ## region: ${AWS_REGION:us-east-1}
+  ## accessKeyId: ${AWS_ACCESS_KEY_ID:}
+  ##  secretKey: ${AWS_SECRET_ACCESS_KEY:}
+
+  ##dynamodb:
+  ## endpoint: ${DYNAMODB_ENDPOINT:}
+  ## table-name: ${DYNAMODB_TABLE_NAME}
+
+aws:
+  dynamodb:
+  endpoint: http://dynamodb:8000
+  region: us-east-1
+
+security:
+  api-key:
+    enabled: false
+    value: dummy
+
+
+
+logging:
+  level:
+    com.example.profileapi: INFO
+    software.amazon.awssdk: INFO

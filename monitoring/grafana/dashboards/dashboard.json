@@ -1,0 +1,45 @@
+{
+  "id": null,
+  "uid": "onboarding-dashboard",
+  "title": "Onboarding Monitoring Dashboard",
+  "tags": ["onboarding", "microservices"],
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "5s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Total Users in MongoDB",
+      "id": 1,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "expr": "mongodb_connections{state=\"active\"}",
+          "legendFormat": "Active Connections",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 4 }
+    },
+    {
+      "type": "logs",
+      "title": "Loki Logs",
+      "id": 2,
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "targets": [
+        {
+          "expr": "{container=\"user-api-service\"}",
+          "refId": "B"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 4, "w": 24, "h": 8 }
+    }
+  ]
+}

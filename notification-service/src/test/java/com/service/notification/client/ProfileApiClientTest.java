@@ -1,0 +1,48 @@
+package com.service.notification.client;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.service.notification.client.ProfileApiClient.HttpClient;
+import com.service.notification.model.UserCreatedEvent;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ProfileApiClientTest {
+
+    @Test
+    void createProfile_callsHttpClientWithCorrectUrlAndBody() throws Exception {
+        // Arrange
+        String baseUrl = "http://localhost:8081";
+        ObjectMapper mapper = new ObjectMapper();
+
+        class FakeHttpClient implements HttpClient {
+            String capturedUrl;
+            String capturedBody;
+            @Override
+            public void post(String url, String jsonBody) {
+                this.capturedUrl = url;
+                this.capturedBody = jsonBody;
+            }
+        }
+
+        FakeHttpClient fakeHttpClient = new FakeHttpClient();
+        ProfileApiClient client = new ProfileApiClient(baseUrl, mapper, fakeHttpClient);
+
+        UserCreatedEvent event = new UserCreatedEvent("u1", "Jane", "Doe", "jane", "jane@example.com");
+
+        // Act
+        client.createProfile(event);
+
+        // Assert
+        assertEquals("http://localhost:8081/profiles", fakeHttpClient.capturedUrl);
+        assertNotNull(fakeHttpClient.capturedBody);
+        assertTrue(fakeHttpClient.capturedBody.contains("\"userId\":\"u1\""));
+        assertTrue(fakeHttpClient.capturedBody.contains("\"username\":\"jane\""));
+    }
+
+    @Test
+    void constructor_throwsWhenBaseUrlMissing() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new ProfileApiClient(null, new ObjectMapper(), (u, b) -> {}));
+    }
+}

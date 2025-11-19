@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: user-api-service
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    date-format: yyyy-MM-dd'T'HH:mm:ss
+
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/userdb}
+      database: userdb
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
+server:
+  port: 8080
+kafka:
+  topic:
+    user-created: user-created-events
+    user-deleted: user-deleted-events
+    user-updated: user-updated-events
+
+app:
+  jwt:
+    # This key is 64 characters long (512 bits) and secure
+    secret: "${APP_JWT_SECRET: bV2pSgVkYp3s6v9y$B&E)H@McQfTjWnZr4t7w!z%C*F-JaNdRgUkXp2s5u8x/A?D}"
+    expiration-ms: 86400000 # 24 hours
+
+admin:
+  registration:
+    key: "adminkey123"
+
+
+logging:
+  level:
+    com.service.userapi: INFO
+    org.springframework.kafka: INFO

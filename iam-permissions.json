@@ -1,0 +1,31 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:AttachRolePolicy",
+        "iam:PutRolePolicy",
+        "iam:GetRole",
+        "iam:PassRole",
+        "iam:DetachRolePolicy",
+        "iam:DeleteRole",
+        "iam:DeleteRolePolicy"
+      ],
+      "Resource": [
+        "arn:aws:iam::615740708882:role/profile-api-*",
+        "arn:aws:iam::615740708882:role/lambda-*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:ListRoles",
+        "iam:ListRolePolicies",
+        "iam:ListAttachedRolePolicies"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
