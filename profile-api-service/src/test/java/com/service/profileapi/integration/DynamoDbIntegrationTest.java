@@ -1,6 +1,6 @@
 package com.service.profileapi.integration;
 
-import com.profileapi.model.UserProfile;
+import com.service.profileapi.model.*;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.junit.jupiter.Container;

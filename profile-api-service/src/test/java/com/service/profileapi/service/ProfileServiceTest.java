@@ -1,14 +1,15 @@
 package com.service.profileapi.service;
 
-import com.profileapi.api.CreateProfileRequest;
-import com.profileapi.model.UserProfile;
-import com.profileapi.repository.UserProfileRepository;
+import com.service.profileapi.api.*;
+import com.service.profileapi.model.*;
+import com.service.profileapi.repository.*;
+import com.service.profileapi.service.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import com.profileapi.service.ProfileService;
+
 
 import java.time.Instant;
 import java.util.Optional;

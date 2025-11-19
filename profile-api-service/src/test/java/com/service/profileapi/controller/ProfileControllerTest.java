@@ -1,17 +1,17 @@
 package com.service.profileapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.profileapi.api.CreateProfileRequest;
-import com.profileapi.model.UserProfile;
-import com.profileapi.service.ProfileService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import com.profileapi.controller.ProfileController;
-import com.profileapi.exception.GlobalExceptionHandler;
+import com.service.profileapi.api.*;
+import com.service.profileapi.model.*;
+import com.service.profileapi.service.*;
+import com.service.profileapi.controller.*;
+import com.service.profileapi.exception.*;
 
 import java.time.Instant;
 import java.util.Optional;

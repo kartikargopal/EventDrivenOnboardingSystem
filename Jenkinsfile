@@ -61,7 +61,7 @@ pipeline {
                         dir(svc) {
                             retry(2) {
                                 timeout(time: 10, unit: 'MINUTES') {
-                                    sh 'mvn clean package -DskipTests'
+                                    sh 'mvn clean package'
                                 }
                             }
                         }
